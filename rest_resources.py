@@ -74,7 +74,6 @@ class UserRegistration(Resource):
             user.save_to_db()
             return {'message': 'Wibeing is created', 'code': '901','uid': uid}
             # except:
-            # return {'message': 'Something went wrong. Our team will look into this', 'code':'10002'}
         except sqlalchemy_exc.ArgumentError:  # specific exception
             pass  # do something else here if you want
 
