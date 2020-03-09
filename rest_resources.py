@@ -16,14 +16,14 @@ from flask_jwt_extended import (create_access_token, create_refresh_token, jwt_r
 
 
 parser_registration = reqparse.RequestParser()
-parser_registration.add_argument('wibeingname', help='This field cannot be blank', required=True)
+parser_registration.add_argument('username', help='This field cannot be blank', required=True)
 parser_registration.add_argument('password', help='This field cannot be blank', required=True)
 parser_registration.add_argument('dob', help='This field cannot be blank', required=True)
 
 
 
 parser_login = reqparse.RequestParser()
-parser_login.add_argument('wibeingname', help='This field cannot be blank', required=True)
+parser_login.add_argument('username', help='This field cannot be blank', required=True)
 parser_login.add_argument('password', help='This field cannot be blank', required=True)
 
 
@@ -41,7 +41,7 @@ class UserRegistration(Resource):
         #                return {'message': 'Device is already registered', 'code': '10001'}
 
         #        else:
-        if re.match("^[A-Za-z0-9_.-]*$", data['wibeingname']):
+        if re.match("^[A-Za-z0-9_.-]*$", data['username']):
             if re.match("^(?=.*[A-Z])(?=.*[0-9])(?=.*[-!@#\$%\^\*])(?=.{8,})", data['password']):
                 if re.match(
                         "^(((0[1-9]|[12][0-9]|30)[/]?(0[13-9]|1[012])|31[/]?(0[13578]|1[02])|(0[1-9]|1[0-9]|2[0-8])[/]?02)[/]?[0-9]{4}|29[/]?02[/]?([0-9]{2}(([2468][048]|[02468][48])|[13579][26])|([13579][26]|[02468][048]|0[0-9]|1[0-6])00))$",
@@ -52,7 +52,7 @@ class UserRegistration(Resource):
                     # )
                     uid = str(uuid.uuid4())
                     user = User(
-                        wibeingname=str.casefold(data['wibeingname']),
+                        username=str.casefold(data['username']),
                         password=bcrypt.hashpw(data['password'].encode('utf8'), bcrypt.gensalt()),
                         dob=datetime.strptime(data['dob'],"%d/%m/%Y"),
                         date_creation=str(datetime.utcnow()),
@@ -72,31 +72,31 @@ class UserRegistration(Resource):
         try:
             # uuid_entry.save_to_db()
             user.save_to_db()
-            return {'message': 'Wibeing is created', 'code': '901','uid': uid}
+            return {'message': 'User is created', 'code': '901','uid': uid}
             # except:
         except sqlalchemy_exc.ArgumentError:  # specific exception
             pass  # do something else here if you want
 
         except sqlalchemy_exc.SQLAlchemyError as error:
-            if re.match("(.*)Duplicate entry(.*)for key 'wibeingname'(.*)", error.args[0]) or re.match("(.*)Duplicate entry(.*)for key 'username'(.*)",error.args[0]):
-                return {'message': 'Wibeing already exists', 'code': '10010'},403
+            if re.match("(.*)Duplicate entry(.*)for key 'username'(.*)", error.args[0]) or re.match("(.*)Duplicate entry(.*)for key 'username'(.*)",error.args[0]):
+                return {'message': 'User already exists', 'code': '10010'},403
 
 
 
-class WibeingLogin(Resource):
+class UserLogin(Resource):
     def post(self):
         data = parser_login.parse_args()
         try:
-            wibeingUser = db_session.query(User).filter_by(username=data['username']).first()
+            User = db_session.query(User).filter_by(username=data['username']).first()
         except:
             return {"message": "Something went wrong", "code": "10006"}
-        if wibeingUser is not None:
-            if wibeingUser.wibeingname == data['username']:
-                if bcrypt.checkpw(data['password'].encode('utf8'), wibeingUser.password.encode('utf8')):
+        if User is not None:
+            if User.username == data['username']:
+                if bcrypt.checkpw(data['password'].encode('utf8'), User.password.encode('utf8')):
                     uid = uuid.uuid4()
                     last_login = uid
                     User.login_uid = last_login
-                    db_session.add(wibeingUser)
+                    db_session.add(User)
                     db_session.commit()
                     access_token = create_access_token(identity=uid)
                     if User.is_active == 0:
