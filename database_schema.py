@@ -24,6 +24,6 @@ class User(Base):
 
     def to_json(self):
         return {
-            "username": self.wibeingname,
+            "username": self.username,
             "date_creation":self.date_creation
         }
