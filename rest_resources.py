@@ -7,6 +7,7 @@ import io
 from multiprocessing.pool import ThreadPool
 from werkzeug.datastructures import FileStorage
 import uuid
+from database_schema import killTokenModel
 from flask import request
 import bcrypt
 import math, random
@@ -32,15 +33,7 @@ class UserRegistration(Resource):
     def post(self):
         data = parser_registration.parse_args()
 
-        # try:
-        # uuidVerify = db_session.query(uuid).filter_by(uuid=encrypt_string(data['uuid'])).first()
-        # except:
-        # return {"message":"Something went wrong","code":"10003"}
-        #        if uuidVerify:
-        #            if uuidVerify.uuid == encrypt_string(data['uuid']):
-        #                return {'message': 'Device is already registered', 'code': '10001'}
 
-        #        else:
         if re.match("^[A-Za-z0-9_.-]*$", data['username']):
             if re.match("^(?=.*[A-Z])(?=.*[0-9])(?=.*[-!@#\$%\^\*])(?=.{8,})", data['password']):
                 if re.match(
@@ -115,3 +108,15 @@ class UserLogin(Resource):
                 return {"message": "Invalid Credentials", "code": "10007"},403
         else:
             return {"message": "User doesn't exist", "code": "10008"},403
+
+
+class Logout(Resource):
+    @jwt_required
+    def post(self):
+        jti = get_raw_jwt()['jti']
+        try:
+            kill_token = killTokenModel(jti=jti)
+            kill_token.save_to_db()
+            return {'message': 'User logout'}
+        except:
+            return {'message': 'Something went wrong while Logout', 'code': '10009'},404
