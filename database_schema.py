@@ -27,3 +27,18 @@ class User(Base):
             "username": self.username,
             "date_creation":self.date_creation
         }
+
+class killTokenModel(Base):
+
+    __tablename__ = "kill_token"
+    id = Column(Integer, primary_key = True)
+    jti = Column(String)
+
+    def save_to_db(self):
+        db_session.add(self)
+        db_session.commit()
+
+    @classmethod
+    def is_jti_blacklisted(cls, jti):
+        query = cls.query.filter_by(jti=jti).first()
+        return bool(query)

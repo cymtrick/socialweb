@@ -57,7 +57,6 @@ class UserRegistration(Resource):
                         dob=datetime.strptime(data['dob'],"%d/%m/%Y"),
                         date_creation=str(datetime.utcnow()),
                         login_uid=uid,
-                        Reputation=1,
                         is_active=0
                     )
                   else:
@@ -87,19 +86,19 @@ class UserLogin(Resource):
     def post(self):
         data = parser_login.parse_args()
         try:
-            User = db_session.query(User).filter_by(username=data['username']).first()
+            user = db_session.query(User).filter_by(username=data['username']).first()
         except:
             return {"message": "Something went wrong", "code": "10006"}
-        if User is not None:
-            if User.username == data['username']:
+        if user is not None:
+            if user.username == data['username']:
                 if bcrypt.checkpw(data['password'].encode('utf8'), User.password.encode('utf8')):
                     uid = uuid.uuid4()
                     last_login = uid
-                    User.login_uid = last_login
+                    user.login_uid = last_login
                     db_session.add(User)
                     db_session.commit()
                     access_token = create_access_token(identity=uid)
-                    if User.is_active == 0:
+                    if user.is_active == 0:
                         return {
                             'verification':'required',
                             'uuid':str(uid)
