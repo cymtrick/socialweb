@@ -11,12 +11,12 @@ class User(Base):
     name = Column(String)
     username = Column(String)
     date_creation = Column(String)
-    backupcode = Column(String)
-    Reputation = Column(String)
     is_active= Column(Integer)
     password=Column(String)
     dob= Column(Date)
     login_uid = Column(String)
+    year = Column(Integer)
+    study_level = Column(String)
 
     def save_to_db(self):
         db_session.add(self)

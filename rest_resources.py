@@ -45,6 +45,7 @@ class UserRegistration(Resource):
                     # )
                     uid = str(uuid.uuid4())
                     user = User(
+                        name = data['username'],
                         username=str.casefold(data['username']),
                         password=bcrypt.hashpw(data['password'].encode('utf8'), bcrypt.gensalt()),
                         dob=datetime.strptime(data['dob'],"%d/%m/%Y"),
@@ -52,6 +53,19 @@ class UserRegistration(Resource):
                         login_uid=uid,
                         is_active=0
                     )
+                    try:
+                        # uuid_entry.save_to_db()
+                        user.save_to_db()
+                        return {'message': 'User is created', 'code': '901', 'uid': uid}
+                        # except:
+                    except sqlalchemy_exc.ArgumentError:  # specific exception
+                        pass  # do something else here if you want
+
+                    except sqlalchemy_exc.SQLAlchemyError as error:
+                        print(error)
+                        if re.match("(.*)Duplicate entry(.*)for key 'username'(.*)", error.args[0]) or re.match(
+                                "(.*)Duplicate entry(.*)for key 'username'(.*)", error.args[0]):
+                            return {'message': 'User already exists', 'code': '10010'}, 403
                   else:
                       return {'message': 'Date of birth is wrong', 'code': '10005-1'}
                 else:
@@ -61,17 +75,7 @@ class UserRegistration(Resource):
                         'code': '10004'}
         else:
             return {'message': 'Username should contain only valid fields such as _ and .', 'code': '10005-2'}
-        try:
-            # uuid_entry.save_to_db()
-            user.save_to_db()
-            return {'message': 'User is created', 'code': '901','uid': uid}
-            # except:
-        except sqlalchemy_exc.ArgumentError:  # specific exception
-            pass  # do something else here if you want
 
-        except sqlalchemy_exc.SQLAlchemyError as error:
-            if re.match("(.*)Duplicate entry(.*)for key 'username'(.*)", error.args[0]) or re.match("(.*)Duplicate entry(.*)for key 'username'(.*)",error.args[0]):
-                return {'message': 'User already exists', 'code': '10010'},403
 
 
 
@@ -84,22 +88,14 @@ class UserLogin(Resource):
             return {"message": "Something went wrong", "code": "10006"}
         if user is not None:
             if user.username == data['username']:
-                if bcrypt.checkpw(data['password'].encode('utf8'), User.password.encode('utf8')):
+                if bcrypt.checkpw(data['password'].encode('utf8'), user.password.encode('utf8')):
                     uid = uuid.uuid4()
                     last_login = uid
                     user.login_uid = last_login
-                    db_session.add(User)
+                    db_session.add(user)
                     db_session.commit()
                     access_token = create_access_token(identity=uid)
-                    if user.is_active == 0:
-                        return {
-                            'verification':'required',
-                            'uuid':str(uid)
-                        }
-                    else:
-                        return {
-                            'jwt_access_token': access_token
-                        }
+                    return {'jwt_access_token': access_token}
 
                 else:
                     return {"message": "Invalid Credentials", "code": "10007"},403

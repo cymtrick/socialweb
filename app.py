@@ -31,12 +31,12 @@ app.config['REMEMBER_COOKIE_SECURE'] = True
 jwt = JWTManager(app)
 
 
-version = "/v0.1"
 
 
-api.add_resource(rest_resources.UserRegistration, version+'/registration')
-api.add_resource(rest_resources.UserLogin, version+'/login')
-api.add_resource(rest_resources.Logout, version+'/logout')
+
+api.add_resource(rest_resources.UserRegistration, '/registration')
+api.add_resource(rest_resources.UserLogin, '/login')
+api.add_resource(rest_resources.Logout, '/logout')
 
 
 app.debug = True
@@ -51,7 +51,7 @@ def check_if_token_in_blacklist(decrypted_token):
 @app.after_request
 def apply_caching(response):
     response.headers["X-Frame-Options"] = "SAMEORIGIN"
-    response.headers["Server"] = "irun v0.1"
+    response.headers["Server"] = "irun"
     response.headers["Cache-Control"] = "private, no-cache, no-store, must-revalidate"
     return response
 
@@ -61,4 +61,10 @@ def apply_caching(response):
 @app.teardown_appcontext
 def shutdown_session(exception=None):
     db_session.remove()
+
+
+if __name__ == '__main__':
+
+    app.run()
+
 
