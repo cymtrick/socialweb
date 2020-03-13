@@ -1,7 +1,7 @@
-###Creating the database
+### Creating the database
 
 
-####Mac installation
+#### Mac installation
 
 Install mysql from https://dev.mysql.com/doc/mysql-osx-excerpt/5.7/en/osx-installation.html
 
@@ -15,16 +15,16 @@ $ mysqld --initialize --explicit_defaults_for_timestamp
 $ mysql.server start # no sudo!
 ````
 
-#####Start MySQL
+##### Start MySQL
 `sudo /usr/local/mysql/support-files/mysql.server start`
 
-#####Stop MySQL
+##### Stop MySQL
 `sudo /usr/local/mysql/support-files/mysql.server stop`
 
-#####Restart MySQL
+##### Restart MySQL
 `sudo /usr/local/mysql/support-files/mysql.server restart`
 
-####Ubuntu or Debain
+#### Ubuntu or Debain
 To install it, update the package index on your server with apt:
 
 `sudo apt update`
@@ -42,9 +42,9 @@ Start the MySQL Server:
 `sudo /etc/init.d/mysql start`
 
 
-####Schema code
+#### Schema code
 
-#####User schema
+##### User schema
 
 ````
 
