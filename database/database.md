@@ -58,6 +58,8 @@ CREATE TABLE `irun`.`auth_user` (
   `password` VARCHAR(45) NULL,
   `dob` DATETIME NULL,
   `login_uid` VARCHAR(45) NULL,
+  `study_level` VARCHAR(45) NULL AFTER `login_uid`,
+  `year` TINYINT(1) NULL AFTER `study_level`,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `name_UNIQUE` (`name` ASC));
 
@@ -70,4 +72,38 @@ CREATE TABLE `irun`.`kill_token` (
   `jti` VARCHAR(100) NULL,
   PRIMARY KEY (`id`));
 
+````
+
+#### Exam table schema
+
+````
+CREATE TABLE `irun`.`exam_table` (
+  `id` INT NOT NULL,
+  `course_name` VARCHAR(45) NULL,
+  `questions_uuid` VARCHAR(45) NULL,
+  `date_creation` DATETIME NULL,
+  PRIMARY KEY (`id`));
+````
+
+#### Question and answer schema
+
+````
+CREATE TABLE `irun`.`new_table` (
+  `id` INT NOT NULL,
+  `question_string` VARCHAR(500) NULL,
+  `answer_type` TINYINT(1) NULL,
+  `answer_string` VARCHAR(45) NULL,
+  `answer_file` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`));
+````
+
+#### Leaderboard schema
+
+````
+CREATE TABLE `irun`.`leader_board` (
+  `id` INT NOT NULL,
+  `course_id` INT NULL,
+  `rank` INT NULL,
+  `user_id` INT NULL,
+  PRIMARY KEY (`id`));
 ````
