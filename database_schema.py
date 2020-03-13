@@ -42,3 +42,42 @@ class killTokenModel(Base):
     def is_jti_blacklisted(cls, jti):
         query = cls.query.filter_by(jti=jti).first()
         return bool(query)
+
+
+class exam_table(Base):
+    __tablename__ = 'exam_table'
+    id = Column(Integer,primary_key=true)
+    course_name = Column(String)
+    questions_uuid = Column(String)
+    date_creation = Column(DateTime)
+
+    def save_to_db(self):
+        db_session.add(self)
+        db_session.commit()
+
+
+class answer_table(Base):
+
+    __tablename__ = 'answer_table'
+    id = Column(Integer,primary_key=true)
+    question_string = Column(String)
+    answer_type = Column(Integer)
+    answer_string =  Column(String)
+    answer_file =  Column(String)
+
+    def save_to_db(self):
+        db_session.add(self)
+        db_session.commit()
+
+class leader_board(Base):
+
+    __tablename__ = 'leader_board'
+    id = Column(Integer, primary_key=true)
+    course_id = Column(Integer)
+    rank = Column(Integer)
+    user_id = Column(Integer)
+
+    def save_to_db(self):
+        db_session.add(self)
+        db_session.commit()
+
