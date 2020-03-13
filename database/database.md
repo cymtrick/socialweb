@@ -40,3 +40,34 @@ Run the security script:
 Start the MySQL Server:
 
 `sudo /etc/init.d/mysql start`
+
+
+####Schema code
+
+#####User schema
+
+````
+
+CREATE TABLE `irun`.`auth_user` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NULL,
+  `username` VARCHAR(45) NULL,
+  `date_creation` VARCHAR(45) NULL,
+  `backupcode` VARCHAR(45) NULL,
+  `is_active` TINYINT(1) NULL,
+  `password` VARCHAR(45) NULL,
+  `dob` DATETIME NULL,
+  `login_uid` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `name_UNIQUE` (`name` ASC));
+
+````
+
+##### Kill token schema
+````
+CREATE TABLE `irun`.`kill_token` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `jti` VARCHAR(100) NULL,
+  PRIMARY KEY (`id`));
+
+````

@@ -36,6 +36,7 @@ version = "/v0.1"
 
 api.add_resource(rest_resources.UserRegistration, version+'/registration')
 api.add_resource(rest_resources.UserLogin, version+'/login')
+api.add_resource(rest_resources.Logout, version+'/logout')
 
 
 app.debug = True
