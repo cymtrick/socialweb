@@ -136,7 +136,7 @@ CREATE TABLE `irun`.`thread` (
   `title` VARCHAR(45) DEFAULT NULL,
   `time` TIMESTAMP,
   `post` VARCHAR(1000) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
   FOREIGN KEY (`user_id`) REFERENCES `irun`.`auth_user`(`id`),
   FOREIGN KEY (`topic_id`) REFERENCES `irun`.`topic`(`id`));
 
