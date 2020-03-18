@@ -9,6 +9,7 @@ import Forum from './components/Forum';
 import ProblemSol from './components/ProblemSol';
 import User from './components/User';
 import Points from './components/Points';
+import ForumPost from './components/ForumPost';
 
 import { BrowserRouter as Router, Switch,Route, Link } from "react-router-dom";
 function App() {
@@ -25,6 +26,7 @@ function App() {
                     <Route exact path="/problem" component={ProblemSol}/>
                     <Route exact path="/leaderboard" component={Points}/>
                     <Route exact path="/user" component={User}/>
+                    <Route exact path="/forumpost" component={ForumPost}/>
                 </Switch>
     </div>
     </Router>
