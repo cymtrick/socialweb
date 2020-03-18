@@ -29,6 +29,11 @@
   height: 150px;
 }
 
+.imgcard-pro{
+  width: 30px;
+  height: 30px;
+}
+
 
 .img-pro{
   width: 50px;
@@ -55,6 +60,15 @@
 }
 .small-txt{
   font-size: 10px;
+}
+
+
+.forum-txt{
+  font-size: 10px;
+  align-content: left;
+  align-items: flex-end;
+  display: flex;
+
 }
 .Login-txt{
   font-size: 13px;
