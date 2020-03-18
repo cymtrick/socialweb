@@ -38,6 +38,13 @@ parser_forum.add_argument('title', help = 'This field cannot be blank', required
 parser_forum_get = reqparse.RequestParser()
 parser_forum.add_argument('topic_id', help= 'This field cannot be blank',required=True)
 
+
+parser_edit_user = reqparse.RequestParser()
+parser_edit_user.add_argument('username', help='This field cannot be blank')
+parser_edit_user.add_argument('password', help='This field cannot be blank' )
+parser_edit_user.add_argument('dob', help='This field cannot be blank')
+
+
 #parser_topic = reqparse.RequestParser()
 #parser_topic.add_argument('title', required=True);
 
@@ -72,7 +79,7 @@ class UserRegistration(Resource):
                     # )
                     uid = str(uuid.uuid4())
                     user = User(
-                        name = data['username'],
+                        name = data['name'],
                         username=str.casefold(data['username']),
                         password=bcrypt.hashpw(data['password'].encode('utf8'), bcrypt.gensalt()),
                         dob=datetime.strptime(data['dob'],"%d/%m/%Y"),
@@ -143,6 +150,46 @@ class Logout(Resource):
             return {'message': 'User logout'}
         except:
             return {'message': 'Something went wrong while Logout', 'code': '10009'},404
+
+
+class EditUser(Resource):
+    @jwt_required
+    def get(self):
+        current_user = get_jwt_identity()
+        login_user = db_session.query(User).filter_by(login_uid=current_user).first()
+        if login_user is not None:
+            return {"username":login_user.username,"name":login_user.name,"dob":login_user.dob}
+
+    @jwt_required
+    def post(self):
+        data = parser_edit_user.parse_args()
+        current_user = get_jwt_identity()
+        user = db_session.query(User).filter_by(login_uid=current_user).first()
+        if user is not None:
+                if data['password'] != "":
+                        if re.match("^(?=.*[A-Z])(?=.*[0-9])(?=.*[-!@#\$%\^\*])(?=.{8,})", data['password']):
+                            if bcrypt.checkpw(data['password'].encode('utf8'), user.password.encode('utf8')):
+                                return {'message':200}
+                            else:
+                                user.password = bcrypt.hashpw(data['password'].encode('utf8'), bcrypt.gensalt())
+                if data['username'] != "":
+                    if re.match("^[A-Za-z0-9_.-]*$", data['username']):
+                        user.username = data['username']
+                    else:
+                        return {'message':403}
+
+                if data['name'] != "":
+                        user.name = data['name']
+
+                try:
+                    db_session.add(user)
+                    db_session.commit()
+                    return {'message':200}
+
+                except sqlalchemy_exc.SQLAlchemyError as error:
+                    if re.match("(.*)Duplicate entry(.*)for key 'username'(.*)", error.args[0]):
+                        return {'message':'User exists'}
+
 
 
 class Forum(Resource):
