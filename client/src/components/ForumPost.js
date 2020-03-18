@@ -9,7 +9,7 @@ function ForumPost(){
             <a href="/stats"><div class="navbar-brand ">IRUN - Create Post</div></a>
 
             <a href="user">  <img src = {profile} className="img-pro"></img></a>
-        
+            <a href="/"><div class="navbar-brand ">Logout</div></a>
 </nav>
 <header className="App-header">
 <div class="card bg-light shadow-lg mb-3" className="App-card-Topic">

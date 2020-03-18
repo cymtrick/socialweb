@@ -9,7 +9,7 @@ function User(){
         <nav class="navbar  navbar-dark bg-dark">
            <a href="/stats">  <div class="navbar-brand ">IRUN - User Settings</div></a>
             <a href="user">  <img src = {profile} className="img-pro"></img></a>
-        
+            <a href="/"><div class="navbar-brand ">Logout</div></a>
 </nav>
 <header className="App-header">
 
@@ -17,7 +17,7 @@ function User(){
   <div class="card-body">
       <div class="mb-5">
           <img src = {profile} class="shadow-lg bg-white rounded" className="img-topi"></img>
-
+ <a href="/"><div class="navbar-brand ">Logout</div></a>
        </div> 
 
        <label className="user-txt"><b>Full Name</b></label> &nbsp;&nbsp;&nbsp;&nbsp;

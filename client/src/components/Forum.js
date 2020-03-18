@@ -10,7 +10,7 @@ function Forum(){
            <a href="/stats"> <div class="navbar-brand ">IRUN - Forum</div></a>
 
           <a href="user">  <img src = {profile} className="img-pro"></img></a>
-        
+          <a href="/"><div class="navbar-brand ">Logout</div></a>
 </nav>
 <header className="App-header">
 

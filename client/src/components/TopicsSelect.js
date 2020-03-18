@@ -13,6 +13,7 @@ function TopicsSelect(){
             <a href="/stats"><div class="navbar-brand ">IRUN</div></a>
 
         <div class="navbar-brand">Skip</div>
+        <a href="/"><div class="navbar-brand ">Logout</div></a>
 </nav>
     
         <header className="App-header">

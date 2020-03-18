@@ -11,7 +11,8 @@ function Stats(){
             <a href="/stats"><div class="navbar-brand ">IRUN</div></a>
 
             <a href="user">  <img src = {profile} className="img-pro"></img></a>
-        
+            <a href="/"><div class="navbar-brand ">Logout</div></a>
+            
 </nav>
 <header className="App-header">
 
@@ -56,8 +57,9 @@ function Stats(){
 </div>
 
 <div class= "row">
-<button type="button" class="btn shadow-lg btn-sm btn-primary btn-block">Start</button>
-
+<a href="problem" class="btn shadow-lg btn-sm btn-primary btn-block">
+<button type="button" class="btn shadow-lg btn-sm btn-primary ">Start</button>
+</a>
 </div>
 </div>
 </div>
@@ -105,8 +107,9 @@ function Stats(){
 </div>
 
 <div class= "row">
-<button type="button" class="btn shadow-lg btn-sm btn-primary btn-block">Start</button>
-
+  <a href="problem" class="btn shadow-lg btn-sm btn-primary btn-block">
+<button type="button" class="btn shadow-lg btn-sm btn-primary ">Start</button>
+</a>
 </div>
 </div>
 </div>
