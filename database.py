@@ -3,7 +3,7 @@ from sqlalchemy.orm import (scoped_session, sessionmaker, relationship, backref)
 
 from sqlalchemy.ext.declarative import declarative_base
 
-engine = create_engine("mysql://root:229-Sadraseast@localhost/irun", pool_pre_ping=True )
+engine = create_engine("mysql://root:@Prashanth123@192.168.0.105/irun", pool_pre_ping=True, )
 
 db_session = scoped_session(sessionmaker(autocommit=False,
                                          autoflush=False,
