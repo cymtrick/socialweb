@@ -39,6 +39,11 @@ function ProblemSol(){
       </input>
 </div>
   </div>
+
+  <div class= "row">
+<button type="button" class="btn shadow-lg  rounded btn-primary btn-block">Next</button>
+
+</div>
 </div>
 </header>
 
