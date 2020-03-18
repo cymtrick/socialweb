@@ -51,8 +51,13 @@ function Stats(){
 
   </div>
 
-  <div class="progress">
+  <div class="progress mb-3">
   <div class="progress-bar bg-success" className="progress-value" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100">65%</div>
+</div>
+
+<div class= "row">
+<button type="button" class="btn shadow-lg btn-sm btn-primary btn-block">Start</button>
+
 </div>
 </div>
 </div>
@@ -95,8 +100,13 @@ function Stats(){
 
   </div>
 
-  <div class="progress">
+  <div class="progress mb-3">
   <div class="progress-bar bg-success" className="progress-value" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100">65%</div>
+</div>
+
+<div class= "row">
+<button type="button" class="btn shadow-lg btn-sm btn-primary btn-block">Start</button>
+
 </div>
 </div>
 </div>
