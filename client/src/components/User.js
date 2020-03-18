@@ -118,9 +118,23 @@ function User(){
 </div>
 
 <div class= "row">
-<button type="button" class="btn shadow-lg  rounded btn-primary btn-block">Save Changes</button>
+<button type="button" data-toggle="modal" data-target="#myModal" class="btn shadow-lg  rounded btn-primary btn-block">Save Changes</button>
 
 </div>
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+       
+        <div class="modal-body">
+          <p>Changes are saved Successfully. You are Awesome. Cheers!!</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
           </div>
