@@ -74,6 +74,18 @@ CREATE TABLE `irun`.`kill_token` (
 
 ````
 
+##### Topic Schema
+````
+CREATE TABLE `irun`.`topic` (
+  `id` INT NOT NULL,
+  `topic_name` VARCHAR(100) DEFAULT NULL,
+  `topic_img_url` VARCHAR(100) DEFAULT NULL,
+  PRIMARY KEY (`id`));
+
+````
+
+
+
 #### Exam table schema
 
 ````
@@ -90,11 +102,14 @@ CREATE TABLE `irun`.`exam_table` (
 ````
 CREATE TABLE `irun`.`new_table` (
   `id` INT NOT NULL,
+  `topic_id` INT NOT NULL,
   `question_string` VARCHAR(500) NULL,
+  `points` INT DEFAULT 0,
   `answer_type` TINYINT(1) NULL,
   `answer_string` VARCHAR(45) NULL,
-  `answer_file` VARCHAR(45) NULL,
-  PRIMARY KEY (`id`));
+  `answer_file` VARCHAR(500) NULL,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`topic_id`) REFERENCES `irun`.`topic`(`id`));
 ````
 
 #### Leaderboard schema
@@ -102,8 +117,43 @@ CREATE TABLE `irun`.`new_table` (
 ````
 CREATE TABLE `irun`.`leader_board` (
   `id` INT NOT NULL,
-  `course_id` INT NULL,
+  `topic_id` INT NOT NULL,
+  `user_id` INT NOT NULL,
   `rank` INT NULL,
-  `user_id` INT NULL,
-  PRIMARY KEY (`id`));
+  `points` INT DEFAULT 0,
+  `progress` INT DEFAULT 0,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`topic_id`) REFERENCES `irun`.`topic`(`id`),
+  FOREIGN KEY (`user_id`) REFERENCES `irun`.`auth_user`(`id`));
+````
+
+##### Discussion Forum Thread Schema
+````
+CREATE TABLE `irun`.`thread` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `user_id` INT NOT NULL,
+  `topic_id` INT NOT NULL,
+  `title` VARCHAR(45) DEFAULT NULL,
+  `time` TIMESTAMP,
+  `post` VARCHAR(1000) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+  FOREIGN KEY (`user_id`) REFERENCES `irun`.`auth_user`(`id`),
+  FOREIGN KEY (`topic_id`) REFERENCES `irun`.`topic`(`id`));
+
+````
+
+##### Discussion Forum Replies per thread Schema
+````
+CREATE TABLE `irun`.`posts` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `thread_id` INT NOT NULL,
+  `user_id` INT NOT NULL,
+  `topic_id` INT NOT NULL,
+  `reply` VARCHAR(1000) DEFAULT NULL,
+  `time` TIMESTAMP,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`thread_id`) REFERENCES `irun`.`thread`(`id`),
+  FOREIGN KEY (`user_id`) REFERENCES `irun`.`auth_user`(`id`),
+  FOREIGN KEY (`topic_id`) REFERENCES `irun`.`topic`(`id`));
+
 ````
