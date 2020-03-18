@@ -61,8 +61,12 @@
 .small-txt{
   font-size: 10px;
 }
-
-
+.user-txt{
+  font-size: 15px;
+}
+.points-li{
+  list-style: none;
+}
 .forum-txt{
   font-size: 10px;
   align-content: left;
