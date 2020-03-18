@@ -5,6 +5,7 @@ import Signup from './components/Signup';
 import SignupDetails from './components/SignupDetails';
 import TopicsSelect from './components/TopicsSelect';
 import Stats from './components/Stats';
+import Forum from './components/Forum';
 
 
 import { BrowserRouter as Router, Switch,Route, Link } from "react-router-dom";
@@ -13,7 +14,7 @@ function App() {
   	<Router>
     <div className="App">
                 <Switch>
-                    <Route exact path="/" component={Login}/>
+                    <Route exact path="/" component={Forum}/>
                     <Route exact path="/signup" component={Signup}/>
                     <Route exact path="/signupdetails" component={SignupDetails}/>
                     <Route exact path="/topicsselect" component={TopicsSelect}/>
