@@ -129,6 +129,13 @@ class thread(Base):
         db_session.add(self)
         db_session.commit()
 
+    def to_json(self):
+        return {
+            "id": self.id,
+            "title":self.title,
+            "post":self.post
+        }
+
 class posts(Base):
     __tablename__ = "posts"
     id = Column(Integer, primary_key = true)

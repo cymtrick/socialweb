@@ -1,12 +1,13 @@
 from flask_restful import Resource, reqparse
 from database import db_session
-from database_schema import Topic, User
+from database_schema import Topic, User, thread
 import sqlalchemy.exc as sqlalchemy_exc
 from datetime import datetime,timedelta
 import io
 from multiprocessing.pool import ThreadPool
 from werkzeug.datastructures import FileStorage
 import uuid
+import json
 from database_schema import killTokenModel
 from flask import request
 import bcrypt
@@ -28,6 +29,14 @@ parser_registration.add_argument('dob', help='This field cannot be blank', requi
 parser_login = reqparse.RequestParser()
 parser_login.add_argument('username', help='This field cannot be blank', required=True)
 parser_login.add_argument('password', help='This field cannot be blank', required=True)
+
+parser_forum = reqparse.RequestParser()
+parser_forum.add_argument('topic_id', help= 'This field cannot be blank',required=True)
+parser_forum.add_argument('post', help = 'This field cannot be blank', required = True)
+parser_forum.add_argument('title', help = 'This field cannot be blank', required = True)
+
+parser_forum_get = reqparse.RequestParser()
+parser_forum.add_argument('topic_id', help= 'This field cannot be blank',required=True)
 
 #parser_topic = reqparse.RequestParser()
 #parser_topic.add_argument('title', required=True);
@@ -134,3 +143,40 @@ class Logout(Resource):
             return {'message': 'User logout'}
         except:
             return {'message': 'Something went wrong while Logout', 'code': '10009'},404
+
+
+class Forum(Resource):
+    @jwt_required
+    def post(self):
+        data = parser_forum.parse_args()
+        current_user = get_jwt_identity()
+        login_user = db_session.query(User).filter_by(login_uid=current_user).first()
+        if login_user is not None:
+            Thread = thread(
+                user_id = current_user,
+                time = datetime.now(),
+                topic_id = data['topic_id'],
+                post = data['post']
+            )
+            try:
+                # uuid_entry.save_to_db()
+                Thread.save_to_db()
+                return {'message': '200'}
+                # except:
+            except sqlalchemy_exc.ArgumentError:  # specific exception
+                pass  # do something else here if you want
+
+            except sqlalchemy_exc.SQLAlchemyError as error:
+                print(error)
+
+
+    @jwt_required
+    def get(self):
+        data = parser_forum_get.parse_args()
+        current_user = get_jwt_identity()
+        login_user = db_session.query(User).filter_by(login_uid=current_user).first()
+        if login_user is not None:
+            topic_id = data['topic_id']
+            threads = db_session.query(thread).filter_by(topic_id=topic_id).limit(10).all()
+            threads = thread.to_json(threads)
+            return json.dumps(threads)
