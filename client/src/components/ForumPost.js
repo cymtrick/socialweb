@@ -6,9 +6,9 @@ function ForumPost(){
     return(
 <div className="App">
         <nav class="navbar  navbar-dark bg-dark">
-            <div class="navbar-brand ">IRUN - Create Post</div>
+            <a href="/stats"><div class="navbar-brand ">IRUN - Create Post</div></a>
 
-            <img src = {profile} className="img-pro"></img>
+            <a href="user">  <img src = {profile} className="img-pro"></img></a>
         
 </nav>
 <header className="App-header">

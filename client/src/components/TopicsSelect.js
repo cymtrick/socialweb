@@ -10,7 +10,7 @@ function TopicsSelect(){
 
         <div className="App">
         <nav class="navbar  navbar-dark bg-dark">
-            <div class="navbar-brand ">IRUN</div>
+            <a href="/stats"><div class="navbar-brand ">IRUN</div></a>
 
         <div class="navbar-brand">Skip</div>
 </nav>

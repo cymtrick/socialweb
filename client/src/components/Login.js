@@ -23,7 +23,7 @@ function Login()
 <input class="btn btn-dark btn-block" type="submit" value="Login">
 </input>
 
-<p className="Login-txt"><b>Already have an account? Sign up </b></p>
+<p className="Login-txt"><b>Already have an account? <a href="signup">Sign up </a></b></p>
 <p className="Login-txt"><b>Forgot Password?</b></p>
   </div>
 </div>

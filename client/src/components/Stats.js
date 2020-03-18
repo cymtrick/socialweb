@@ -8,9 +8,9 @@ function Stats(){
     return(
 <div className="App">
         <nav class="navbar  navbar-dark bg-dark">
-            <div class="navbar-brand ">IRUN</div>
+            <a href="/stats"><div class="navbar-brand ">IRUN</div></a>
 
-            <img src = {profile} className="img-pro"></img>
+            <a href="user">  <img src = {profile} className="img-pro"></img></a>
         
 </nav>
 <header className="App-header">
@@ -43,7 +43,7 @@ function Stats(){
       </div>
 
       <div class="col-md-6">
-            <p className="small-txt"><b>Go to Forum -></b></p>
+            <p className="small-txt"><a href="forum"><b>Go to Forum</b></a></p>
 </div>
 
 
@@ -87,7 +87,7 @@ function Stats(){
       </div>
 
       <div class="col-md-6">
-            <p className="small-txt"><b>Go to Forum -></b></p>
+            <p className="small-txt"><a href="forum"><b>Go to Forum</b></a></p>
 </div>
 
 

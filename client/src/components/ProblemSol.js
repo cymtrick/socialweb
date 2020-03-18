@@ -7,8 +7,8 @@ function ProblemSol(){
 
         <div className="App">
         <nav class="navbar  navbar-dark bg-dark">
-            <div class="navbar-brand ">IRUN - Basic C++</div>
-            <img src = {profile} className="img-pro"></img>
+            <a href="/stats"><div class="navbar-brand ">IRUN - Basic C++</div></a>
+            <a href="user">  <img src = {profile} className="img-pro"></img></a>
         
 </nav>
 <header className="App-header">
