@@ -10,7 +10,17 @@ import Stats from './components/Stats';
 import { BrowserRouter as Router, Switch,Route, Link } from "react-router-dom";
 function App() {
   return (
-    <Stats />
+  	<Router>
+    <div className="App">
+                <Switch>
+                    <Route exact path="/" component={Login}/>
+                    <Route exact path="/signup" component={Signup}/>
+                    <Route exact path="/signupdetails" component={SignupDetails}/>
+                    <Route exact path="/topicsselect" component={TopicsSelect}/>
+                    <Route exact path="/stats" component={Stats}/>
+                </Switch>
+    </div>
+    </Router>
   );
 }
 
