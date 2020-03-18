@@ -1,6 +1,6 @@
 from flask_restful import Resource, reqparse
 from database import db_session
-from database_schema import User
+from database_schema import Topic, User
 import sqlalchemy.exc as sqlalchemy_exc
 from datetime import datetime,timedelta
 import io
@@ -14,6 +14,8 @@ import math, random
 import re
 from flask_jwt_extended import (create_access_token, create_refresh_token, jwt_required, jwt_refresh_token_required,
                                 get_jwt_identity, get_raw_jwt)
+from flask import jsonify
+
 
 
 parser_registration = reqparse.RequestParser()
@@ -26,6 +28,22 @@ parser_registration.add_argument('dob', help='This field cannot be blank', requi
 parser_login = reqparse.RequestParser()
 parser_login.add_argument('username', help='This field cannot be blank', required=True)
 parser_login.add_argument('password', help='This field cannot be blank', required=True)
+
+#parser_topic = reqparse.RequestParser()
+#parser_topic.add_argument('title', required=True);
+
+
+class GetTopic(Resource):
+    def get(self):
+        #data = parser_topic.parse_args()
+        topics = db_session.query(Topic).all()
+        retData = []
+        for tp in topics:
+            dat = {}
+            dat['id'] = tp.id
+            dat['name'] = tp.topic_name
+            retData.append(dat)
+        return {"message": "success", "data": retData}
 
 
 

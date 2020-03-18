@@ -108,8 +108,7 @@ CREATE TABLE `irun`.`new_table` (
   `answer_type` TINYINT(1) NULL,
   `answer_string` VARCHAR(45) NULL,
   `answer_file` VARCHAR(500) NULL,
-  PRIMARY KEY (`id`),
-  FOREIGN KEY (`topic_id`) REFERENCES `irun`.`topic`(`id`));
+  PRIMARY KEY (`id`));
 ````
 
 #### Leaderboard schema
@@ -122,9 +121,7 @@ CREATE TABLE `irun`.`leader_board` (
   `rank` INT NULL,
   `points` INT DEFAULT 0,
   `progress` INT DEFAULT 0,
-  PRIMARY KEY (`id`),
-  FOREIGN KEY (`topic_id`) REFERENCES `irun`.`topic`(`id`),
-  FOREIGN KEY (`user_id`) REFERENCES `irun`.`auth_user`(`id`));
+  PRIMARY KEY (`id`));
 ````
 
 ##### Discussion Forum Thread Schema
@@ -136,9 +133,7 @@ CREATE TABLE `irun`.`thread` (
   `title` VARCHAR(45) DEFAULT NULL,
   `time` TIMESTAMP,
   `post` VARCHAR(1000) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  FOREIGN KEY (`user_id`) REFERENCES `irun`.`auth_user`(`id`),
-  FOREIGN KEY (`topic_id`) REFERENCES `irun`.`topic`(`id`));
+  PRIMARY KEY (`id`));
 
 ````
 
@@ -151,9 +146,6 @@ CREATE TABLE `irun`.`posts` (
   `topic_id` INT NOT NULL,
   `reply` VARCHAR(1000) DEFAULT NULL,
   `time` TIMESTAMP,
-  PRIMARY KEY (`id`),
-  FOREIGN KEY (`thread_id`) REFERENCES `irun`.`thread`(`id`),
-  FOREIGN KEY (`user_id`) REFERENCES `irun`.`auth_user`(`id`),
-  FOREIGN KEY (`topic_id`) REFERENCES `irun`.`topic`(`id`));
+  PRIMARY KEY (`id`));
 
 ````

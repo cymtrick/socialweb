@@ -37,6 +37,7 @@ jwt = JWTManager(app)
 api.add_resource(rest_resources.UserRegistration, '/registration')
 api.add_resource(rest_resources.UserLogin, '/login')
 api.add_resource(rest_resources.Logout, '/logout')
+api.add_resource(rest_resources.GetTopic, '/getTopic')
 
 
 app.debug = True
@@ -62,9 +63,12 @@ def apply_caching(response):
 def shutdown_session(exception=None):
     db_session.remove()
 
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    return "Hello IRUN devs!!"
+
 
 if __name__ == '__main__':
-
     app.run()
 
 
