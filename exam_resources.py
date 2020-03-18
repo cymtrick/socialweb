@@ -23,5 +23,7 @@ parser_exam.add_argument('select')
 parser_exam.add_argument('code')
 
 class UserRegistration(Resource):
+
+    @jwt_required
     def post(self):
         data = parser_exam.parse_args()
