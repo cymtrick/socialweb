@@ -38,8 +38,8 @@ api.add_resource(rest_resources.UserRegistration, '/registration')
 api.add_resource(rest_resources.UserLogin, '/login')
 api.add_resource(rest_resources.Logout, '/logout')
 api.add_resource(rest_resources.GetTopic, '/getTopic')
-api.add_resource((exam_resources.Exam, '/exam'))
-api.add_resource((exam_resources.LeaderBoard, '/leaderboard'))
+api.add_resource(exam_resources.Exam, '/exam')
+api.add_resource(exam_resources.LeaderBoard, '/leaderboard')
 
 
 app.debug = True
