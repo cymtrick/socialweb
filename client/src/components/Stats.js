@@ -18,7 +18,7 @@ function Stats(){
 
 <div class="card bg-light shadow-lg mb-3" className="App-card-Topic">
   <div class="card-header"><b>Basic C++</b> &nbsp; &nbsp; 
-  <span class="badge badge-success">Rank : 102</span>
+  <a href="leaderboard"><span class="badge badge-success">Rank : 102</span></a>
  </div>
   <div class="card-body">
       <div class="row mb-5">
@@ -68,7 +68,7 @@ function Stats(){
 
 <div class="card bg-light shadow-lg mb-5" className="App-card-Topic">
   <div class="card-header"><b>Basic Java</b> &nbsp; &nbsp; 
-  <span class="badge badge-success">Rank : 1034</span>
+  <a href="leaderboard"><span class="badge badge-success">Rank : 1034</span></a>
  </div>
   <div class="card-body">
       <div class="row mb-5">
