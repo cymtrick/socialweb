@@ -97,8 +97,22 @@ render(){
     </input>
   </div>
 
-   <input class="btn btn-dark btn-block" type="submit" value="Login"></input>
+   <input class="btn btn-dark btn-block" data-toggle="modal" data-target="#myLogin" type="submit" value="Login"></input>
 </form>
+
+<div class="modal fade" id="myLogin" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+       
+        <div class="modal-body">
+          <p>Login Failed</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
   
 
 <p className="Login-txt"><b>Already have an account? <a href="signup">Sign up </a></b></p>
