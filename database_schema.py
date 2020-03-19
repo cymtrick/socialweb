@@ -75,7 +75,7 @@ class exam_table(Base):
 
 class new_table(Base):
     __tablename__ = 'new_table'
-    id = Column(Integer, primary_key=true)
+    id = Column(String, primary_key=true)
     topic_id = Column(Integer)
     question_string = Column(String)
     points = Column(Integer)
@@ -86,6 +86,15 @@ class new_table(Base):
     def save_to_db(self):
         db_session.add(self)
         db_session.commit()
+
+    def to_json(self):
+        return {
+            "id": self.id,
+            "question_string":self.question_string,
+            "points":self.points,
+            "answer_type":self.answer_type,
+            "answer_string":self.answer_string,
+        }
 
 
 class answer_table(Base):
@@ -114,6 +123,16 @@ class leader_board(Base):
     def save_to_db(self):
         db_session.add(self)
         db_session.commit()
+
+    def to_json(self):
+        return {
+            "id": self.id,
+            "topic_id":self.topic_id,
+            "user_id":self.user_id,
+            "rank":self.rank,
+            "points": self.points,
+            "progress": self.progress
+        }
 
 class thread(Base):
 

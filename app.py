@@ -1,7 +1,7 @@
 from flask import Flask
 from database import db_session
 from flask_restful import Api
-import rest_resources
+import rest_resources, exam_resources
 from flask_jwt_extended import JWTManager
 from keys import JWT_PRIVATE_KEY,JWT_PUBLIC_KEY
 from flask_cors import CORS
@@ -38,6 +38,8 @@ api.add_resource(rest_resources.UserRegistration, '/registration')
 api.add_resource(rest_resources.UserLogin, '/login')
 api.add_resource(rest_resources.Logout, '/logout')
 api.add_resource(rest_resources.GetTopic, '/getTopic')
+api.add_resource((exam_resources.Exam, '/exam'))
+api.add_resource((exam_resources.LeaderBoard, '/leaderboard'))
 
 
 app.debug = True
